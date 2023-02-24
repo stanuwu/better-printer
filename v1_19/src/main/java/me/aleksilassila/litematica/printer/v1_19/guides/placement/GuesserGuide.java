@@ -25,12 +25,12 @@ public class GuesserGuide extends GeneralPlacementGuide {
     private PrinterPlacementContext contextCache = null;
 
     protected static Direction[] directionsToTry = new Direction[]{
+            Direction.UP,
+            Direction.DOWN,
             Direction.NORTH,
             Direction.SOUTH,
             Direction.EAST,
-            Direction.WEST,
-            Direction.UP,
-            Direction.DOWN
+            Direction.WEST
     };
     protected static Vec3d[] hitVecsToTry = new Vec3d[]{
             new Vec3d(-0.25, -0.25, -0.25),
