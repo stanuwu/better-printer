@@ -4,7 +4,9 @@ import me.aleksilassila.litematica.printer.v1_19.PrinterPlacementContext;
 import me.aleksilassila.litematica.printer.v1_19.actions.InteractAction;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.BucketItem;
+import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.c2s.play.*;
 import net.minecraft.network.packet.s2c.play.PlayerPositionLookS2CPacket;
@@ -26,9 +28,8 @@ public class InteractActionImpl extends InteractAction {
     @Override
     protected void interact(MinecraftClient client, ClientPlayerEntity player, Hand hand, BlockHitResult hitResult) {
         BlockPos rpos = hitResult.getBlockPos().offset(hitResult.getSide());
-        if(client.getNetworkHandler() == null) return;
-        client.getNetworkHandler().getConnection().send(new UpdateSelectedSlotC2SPacket(player.getInventory().selectedSlot));
-        client.getNetworkHandler().getConnection().send(new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, hitResult, 0));
+        client.interactionManager.interactBlock(player, hand, hitResult);
+        client.interactionManager.interactItem(player, hand);
         ItemStack holding = player.getInventory().getMainHandStack();
         if(holding.getItem() instanceof BucketItem bi) {
             client.getNetworkHandler().getConnection().send(new PlayerInteractItemC2SPacket(Hand.MAIN_HAND, 0));

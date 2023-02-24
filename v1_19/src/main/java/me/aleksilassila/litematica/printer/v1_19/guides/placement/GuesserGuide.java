@@ -60,7 +60,7 @@ public class GuesserGuide extends GeneralPlacementGuide {
                 BlockState neighborState = state.world.getBlockState(neighborPos);
                 boolean requiresShift = getRequiresExplicitShift() || isInteractive(neighborState.getBlock());
 
-                if(requiredItem.getItem() instanceof BucketItem || state.targetState.getBlock() instanceof SlabBlock) {
+                if(requiredItem.getItem() instanceof BucketItem || state.targetState.getBlock() instanceof SlabBlock || !LitematicaMixinMod.PRINT_IN_AIR.getBooleanValue()) {
                     if (!canBeClicked(state.world, neighborPos) || // Handle unclickable grass for example
                             neighborState.getMaterial().isReplaceable())
                         continue;
