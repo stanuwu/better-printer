@@ -25,12 +25,12 @@ public class GuesserGuide extends GeneralPlacementGuide {
     private PrinterPlacementContext contextCache = null;
 
     protected static Direction[] directionsToTry = new Direction[]{
-            Direction.DOWN,
-            Direction.UP,
             Direction.NORTH,
             Direction.SOUTH,
             Direction.EAST,
-            Direction.WEST
+            Direction.WEST,
+            Direction.UP,
+            Direction.DOWN,
     };
     protected static Vec3d[] hitVecsToTry = new Vec3d[]{
             new Vec3d(-0.25, -0.25, -0.25),
@@ -59,6 +59,12 @@ public class GuesserGuide extends GeneralPlacementGuide {
                 BlockPos neighborPos = state.blockPos.offset(side);
                 BlockState neighborState = state.world.getBlockState(neighborPos);
                 boolean requiresShift = getRequiresExplicitShift() || isInteractive(neighborState.getBlock());
+
+                boolean bt = false;
+                for (int i = 0; i < 6; i++) {
+                    if(!state.world.getBlockState(state.blockPos.offset(lookDirection)).isAir()) bt = true;
+                }
+                if(bt) continue;
 
                 if(requiredItem.getItem() instanceof BucketItem || state.targetState.getBlock() instanceof SlabBlock || !LitematicaMixinMod.PRINT_IN_AIR.getBooleanValue()) {
                     if (!canBeClicked(state.world, neighborPos) || // Handle unclickable grass for example
