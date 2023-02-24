@@ -25,8 +25,8 @@ public class GuesserGuide extends GeneralPlacementGuide {
     private PrinterPlacementContext contextCache = null;
 
     protected static Direction[] directionsToTry = new Direction[]{
-            Direction.UP,
             Direction.DOWN,
+            Direction.UP,
             Direction.NORTH,
             Direction.SOUTH,
             Direction.EAST,
