@@ -58,7 +58,7 @@ public class Printer {
 
             for (Guide guide : guides) {
                 if (guide.canExecute(player)) {
-                    System.out.println("Executing " + guide + " for " + state);
+                    //System.out.println("Executing " + guide + " for " + state);
                     List<Action> actions = guide.execute(player);
                     actionHandler.addActions(actions.toArray(Action[]::new));
                     return true;

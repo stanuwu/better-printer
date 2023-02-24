@@ -34,7 +34,7 @@ public class GeneralPlacementGuide extends PlacementGuide {
     }
 
     protected boolean getRequiresSupport() {
-        return false;
+        return !targetState.getFluidState().isEmpty();
     }
 
     protected boolean getRequiresExplicitShift() {
@@ -46,7 +46,7 @@ public class GeneralPlacementGuide extends PlacementGuide {
     }
 
     private Optional<Direction> getValidSide(SchematicBlockState state) {
-        boolean printInAir = false; // LitematicaMixinMod.PRINT_IN_AIR.getBooleanValue();
+        boolean printInAir = true; // LitematicaMixinMod.PRINT_IN_AIR.getBooleanValue();
 
         List<Direction> sides = getPossibleSides();
 
@@ -56,7 +56,7 @@ public class GeneralPlacementGuide extends PlacementGuide {
 
         List<Direction> validSides = new ArrayList<>();
         for (Direction side : sides) {
-            if (printInAir && !getRequiresSupport()) {
+            if (!getRequiresSupport()) {
                 return Optional.of(side);
             } else {
                 SchematicBlockState neighborState = state.offset(side);

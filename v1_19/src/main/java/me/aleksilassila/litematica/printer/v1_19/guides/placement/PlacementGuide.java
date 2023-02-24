@@ -35,6 +35,7 @@ abstract public class PlacementGuide extends Guide {
     }
 
     protected ItemStack getBlockItem(BlockState state) {
+        if(!state.getFluidState().isEmpty()) return state.getFluidState().getFluid().getBucketItem().getDefaultStack();
         return state.getBlock().getPickStack(this.state.world, this.state.blockPos, state);
     }
 
